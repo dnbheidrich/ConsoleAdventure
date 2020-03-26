@@ -16,37 +16,59 @@ namespace EscapeFromCorona.Models
 
 
             // NOTE Create all rooms
-            Room produce = new Room("Produce Section", @"
-                 \|/
-                 AXA
-                /XXX\
-                \XXX/
-                 `^'
-            Plenty of Fruit and Veggies, wonder why no on is stockpiling these yet");
-            Room electronics = new Room("Electronics", "Lots of stuff still here, yet no webcams in sight.");
-            Room frozenFoods = new Room("Frozen Foods", "Mostly empty shelves though the vegan chocolate hummus is still in stock for some reason");
-            EndRoom checkout = new EndRoom("Checkout", "A stressed minimum wage employee stares out you with a thousand yard stare, he has seen too much these last few weeks", true,"You breeze through the checkout with your new found wealth!" +  Utils.WinLogo);
-            EndRoom toiletPaperIsle = new EndRoom("Toiletries", "A hoarde of people are racing through this aisle with their weapons out", false, "You are trampled under foot and your name is lost to history" + Utils.DeathLogo);
+            Room startRoom = new Room("Hospital Room",Utils.StartRoomLogo + "You wake up with no recollection of your past, You seem to be hooked up to a ventilator in a bed with a flickering light above you");
+            Room hallwayRoom = new Room("Hallway",Utils.HallwayLogo +"You stumble into the long hallway it seems like noones been around for days, The calender on the wall says the date is April of 2020");
+             Room deadEnd = new Room("Dead-End or so it seems","You come upon a barred doors with big red letters WARNING.");
+             Room safeRoom = new Room("Safe Room", "Welcome survivor I thought you had turned into a Rona good to see you safe theres a key here to unlock the way out");
+            Room officeRoom = new Room("Frozen Foods",Utils.OfficeRoomLogo +"Office Room");
+            EndRoom escapeRoom = new EndRoom("Checkout", "A stressed minimum wage employee stares out you with a thousand yard stare, he has seen too much these last few weeks", true,"You breeze through the checkout with your new found wealth!" +  Utils.WinLogo);
+            EndRoom deathRoom = new EndRoom("Toiletries", "A hoarde of people are racing through this aisle with their weapons out", false, "You are trampled under foot and your name is lost to history" + Utils.DeathLogo);
 
             // NOTE Create all Items
-            Item tp = new Item("Toilet Paper", "A Single Roll of precious paper, it must have fallen from a pack");
+            Item key = new Item("Key", "A Key!");
+            Item journal = new Item("Journal", "A Book of words!!");
+
 
             // NOTE Make Room Relationships
-            produce.Exits.Add("east", electronics);
-            electronics.Exits.Add("west", produce);
-            electronics.Exits.Add("north", frozenFoods);
-            electronics.Exits.Add("east", toiletPaperIsle);
-            frozenFoods.Exits.Add("south", electronics);
+            // NOTE startRoom exits
+            startRoom.Exits.Add("north", hallwayRoom);
+            // end
 
-            frozenFoods.AddLockedRoom(tp, "west", checkout);
-            checkout.Exits.Add("east", frozenFoods);
+            // NOTE hallwayRoom exits
+            hallwayRoom.Exits.Add("north", deadEnd);
+            hallwayRoom.Exits.Add("south", startRoom);
+            hallwayRoom.Exits.Add("east", deathRoom);
+            hallwayRoom.Exits.Add("west", officeRoom);
+            // end
+
+            // NOTE officeRoom exits
+            officeRoom.Exits.Add("east", hallwayRoom);
+            officeRoom.AddLockedRoom(key, "west", escapeRoom);
+            // end
+
+            // NOTE deadEnd exits
+            deadEnd.AddLockedRoom(journal, "east", safeRoom);
+            deadEnd.Exits.Add("south", hallwayRoom);
+            // end
+           
+            // NOTE safeRoom exits
+            safeRoom.Exits.Add("west", deadEnd);
+        
+
+
+            // NOTE winRoom exits
+            escapeRoom.Exits.Add("east", officeRoom);
+            // end
 
 
             // NOTE put Items in Rooms
-            electronics.Items.Add(tp);
+            safeRoom.Items.Add(key);
+            officeRoom.Items.Add(journal);
 
 
-            CurrentRoom = produce;
+
+
+            CurrentRoom = startRoom;
         }
     }
 }

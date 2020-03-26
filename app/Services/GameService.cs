@@ -35,7 +35,7 @@ namespace EscapeFromCorona.Services
                 EndRoom end = _game.CurrentRoom as EndRoom;
                 if (end != null)
                 {
-                    Messages.Add(new Message(end.Narrative, ConsoleColor.Green));
+                    Messages.Add(new Message(end.Narrative, ConsoleColor.Red));
                     return false;
                 }
                 return true;
@@ -48,7 +48,9 @@ namespace EscapeFromCorona.Services
 
         public void Help()
         {
-            throw new System.NotImplementedException();
+            Messages.Add(new Message("This is help", ConsoleColor.Blue));
+            Messages.Add(new Message("(use) to use item", ConsoleColor.Blue));
+
         }
 
         public void Inventory()
@@ -56,14 +58,14 @@ namespace EscapeFromCorona.Services
             Messages.Add(new Message("Current Inventory: ", ConsoleColor.Blue));
             foreach (var item in _game.CurrentPlayer.Inventory)
             {
-                Messages.Add(new Message($"{item.Name} - {item.Description}"));
+                Messages.Add(new Message($"{item.Name} - {item.Description}", ConsoleColor.Blue));
             }
         }
 
         public void Look()
         {
-            Messages.Add(new Message(_game.CurrentRoom.Name));
-            Messages.Add(new Message(_game.CurrentRoom.Description));
+            Messages.Add(new Message(_game.CurrentRoom.Name, ConsoleColor.White));
+            Messages.Add(new Message(_game.CurrentRoom.Description, ConsoleColor.Blue));
             if (_game.CurrentRoom.Items.Count > 0)
             {
                 Messages.Add(new Message("There Are a few things in this room:"));
@@ -80,7 +82,7 @@ namespace EscapeFromCorona.Services
             {
                 lockedExits += lockedRoom.Key;
             }
-            Messages.Add(new Message("There are locked exits to the " + lockedExits));
+            Messages.Add(new Message("There are locked exits to the " + lockedExits, ConsoleColor.Red));
 
         }
 
@@ -101,7 +103,7 @@ namespace EscapeFromCorona.Services
                 Messages.Add(new Message($"You have taken the {itemName}"));
                 return;
             }
-            Messages.Add(new Message("Cannot find item by that name"));
+            Messages.Add(new Message("Cannot find item by that name", ConsoleColor.Red));
         }
 
         public void Use(string itemName)
@@ -113,7 +115,7 @@ namespace EscapeFromCorona.Services
                 return;
             }
             // check if item is in room
-            Messages.Add(new Message("You don't have that Item"));
+            Messages.Add(new Message("You don't have that Item", ConsoleColor.Red));
         }
 
 
