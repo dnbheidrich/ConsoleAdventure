@@ -2,8 +2,9 @@ using System.Collections.Generic;
 
 namespace EscapeFromCorona.Interfaces
 {
-     interface IGameService
+    interface IGameService
     {
+        //go, look, take, use, inventory, Rest, setup, help
         List<string> Messages { get; set; }
         void Reset();
 

@@ -1,10 +1,11 @@
 using System;
+using System.Threading;
 using EscapeFromCorona.Interfaces;
 using EscapeFromCorona.Services;
 
 namespace EscapeFromCorona.Controllers
 {
-     class GameController : IGameController
+    class GameController : IGameController
     {
         private IGameService _gs { get; set; }
         private bool _running { get; set; } = true;
@@ -12,11 +13,11 @@ namespace EscapeFromCorona.Controllers
         {
             Console.WriteLine("Hello there what is your name?");
             _gs = new GameService(Console.ReadLine());
-            string greeting = "Hello World";
+            string greeting = "Welcome to my game";
             foreach (char letter in greeting)
             {
                 Console.Write(letter);
-                //Thread.Sleep(100);
+                Thread.Sleep(100);
             }
             Console.WriteLine();
             Print();
@@ -28,8 +29,9 @@ namespace EscapeFromCorona.Controllers
         }
         public void GetUserInput()
         {
+            
             Console.WriteLine("What would you like to do?");
-            string input = Console.ReadLine().ToLower() + " ";
+            string input = Console.ReadLine().ToLower() + " "; 
             string command = input.Substring(0, input.IndexOf(" "));
             string option = input.Substring(input.IndexOf(" ") + 1).Trim();
 
@@ -38,6 +40,9 @@ namespace EscapeFromCorona.Controllers
             {
                 case "quit":
                     _running = false;
+                    break;
+                     case "help":
+                     _gs.Help();
                     break;
                 case "reset":
                     _gs.Reset();

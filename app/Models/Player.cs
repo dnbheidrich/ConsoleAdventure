@@ -2,8 +2,9 @@ using System.Collections.Generic;
 using EscapeFromCorona.Interfaces;
 
 namespace EscapeFromCorona.Models
+
 {
-     class Player : IPlayer
+    class Player : IPlayer
     {
         private string playerName;
 

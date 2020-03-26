@@ -1,12 +1,14 @@
 using System.Collections.Generic;
+using System.Linq;
 using EscapeFromCorona.Interfaces;
 using EscapeFromCorona.Models;
 
 namespace EscapeFromCorona.Services
+
 {
-class GameService : IGameService
-{
-      public List<string> Messages { get; set; }
+    class GameService : IGameService
+    {
+        public List<string> Messages { get; set; }
         private IGame _game { get; set; }
 
         public GameService(string playerName)
@@ -111,5 +113,7 @@ class GameService : IGameService
             Messages.Add("You don't have that Item");
         }
 
-}
+
+
+    }
 }

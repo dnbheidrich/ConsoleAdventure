@@ -2,7 +2,7 @@ using EscapeFromCorona.Interfaces;
 
 namespace EscapeFromCorona.Models
 {
-     class Item : IItem
+    class Item : IItem
     {
         public Item(string name, string description)
         {

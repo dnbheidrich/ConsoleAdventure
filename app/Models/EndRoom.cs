@@ -1,6 +1,7 @@
 namespace EscapeFromCorona.Models
+
 {
-     class EndRoom : Room
+    class EndRoom : Room
     {
         public bool Win { get; set; }
         public string Narrative { get; set; }

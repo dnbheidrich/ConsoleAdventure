@@ -5,5 +5,5 @@ namespace EscapeFromCorona.Interfaces
         void Run();
         void GetUserInput();
         void Print();
-    }  
+    }
 }

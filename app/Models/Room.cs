@@ -3,7 +3,7 @@ using EscapeFromCorona.Interfaces;
 
 namespace EscapeFromCorona.Models
 {
-      class Room : IRoom
+    class Room : IRoom
     {
         public string Name { get; set; }
         public string Description { get; set; }
@@ -23,7 +23,7 @@ namespace EscapeFromCorona.Models
             {
                 Exits.Add(LockedExits[item].Key, LockedExits[item].Value);
                 LockedExits.Remove(item);
-                if (item.Name.ToLower() == "toilet paper")
+                if (item.Name.ToLower() == "toilet paper" || item.Name.ToLower() == "tp" )
                 {
                     return "You hoist the precious paper in the air and a checkstand opens as if by magic";
                 }
