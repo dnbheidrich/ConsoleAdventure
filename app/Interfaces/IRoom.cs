@@ -8,8 +8,6 @@ namespace EscapeFromCorona.Interfaces
         string Description { get; set; }
         List<IItem> Items { get; set; }
 
-        // NOTE "south": {name: "Jungle forest" ....}
-        //      "north": {}
 
         Dictionary<string, IRoom> Exits { get; set; }
         Dictionary<IItem, KeyValuePair<string, IRoom>> LockedExits { get; set; }

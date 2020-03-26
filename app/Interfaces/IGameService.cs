@@ -1,11 +1,12 @@
 using System.Collections.Generic;
+using EscapeFromCorona.Models;
 
 namespace EscapeFromCorona.Interfaces
 {
     interface IGameService
     {
         //go, look, take, use, inventory, Rest, setup, help
-        List<string> Messages { get; set; }
+         List<Message> Messages { get; set; }
         void Reset();
 
         #region Console Commands

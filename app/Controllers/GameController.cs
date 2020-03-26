@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using EscapeFromCorona.Interfaces;
+using EscapeFromCorona.Models;
 using EscapeFromCorona.Services;
 
 namespace EscapeFromCorona.Controllers
@@ -63,7 +64,7 @@ namespace EscapeFromCorona.Controllers
                     _gs.Use(option);
                     break;
                 default:
-                    _gs.Messages.Add("Not a recognized command");
+                    _gs.Messages.Add(new Message("Not a recognized command"));
                     _gs.Look();
                     break;
             }
@@ -71,11 +72,15 @@ namespace EscapeFromCorona.Controllers
 
         public void Print()
         {
-            foreach (string message in _gs.Messages)
+            foreach (Message message in _gs.Messages)
             {
-                Console.WriteLine(message);
+
+                Console.WriteLine(message.Body);
+                // Console.ForegroundColor = ConsoleColor.Red;
+                // Console.BackgroundColor = ConsoleColor.Blue;
+                Console.ForegroundColor = message.Color;
+                Console.BackgroundColor = ConsoleColor.Black;
             }
-            _gs.Messages.Clear();
         }
 
     }

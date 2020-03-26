@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using EscapeFromCorona.Interfaces;
@@ -8,18 +9,19 @@ namespace EscapeFromCorona.Services
 {
     class GameService : IGameService
     {
-        public List<string> Messages { get; set; }
+        public List<Message> Messages { get; set; }
         private IGame _game { get; set; }
 
         public GameService(string playerName)
         {
-            Messages = new List<string>();
+            Messages = new List<Message>();
             _game = new Game();
             _game.CurrentPlayer = new Player(playerName);
             Look();
         }
 
-        public bool Go(string direction)
+
+    public bool Go(string direction)
         {
             //if the current room has that direction on the exits dictionary
             if (_game.CurrentRoom.Exits.ContainsKey(direction))
@@ -27,18 +29,19 @@ namespace EscapeFromCorona.Services
                 // set current room to the exit room
                 _game.CurrentRoom = _game.CurrentRoom.Exits[direction];
                 // populate messages with room description
-                Messages.Add($"You Travel {direction}, and discover: ");
+                Messages.Add(new Message($"You Travel {direction}, and discover: ", ConsoleColor.White));
                 Look();
+
                 EndRoom end = _game.CurrentRoom as EndRoom;
                 if (end != null)
                 {
-                    Messages.Add(end.Narrative);
+                    Messages.Add(new Message(end.Narrative, ConsoleColor.Green));
                     return false;
                 }
                 return true;
             }
             //no exit in that direction
-            Messages.Add("No Room in that direction");
+            Messages.Add(new Message("No Room in that direction", ConsoleColor.Red));
             Look();
             return true;
         }
@@ -50,34 +53,34 @@ namespace EscapeFromCorona.Services
 
         public void Inventory()
         {
-            Messages.Add("Current Inventory: ");
+            Messages.Add(new Message("Current Inventory: ", ConsoleColor.Blue));
             foreach (var item in _game.CurrentPlayer.Inventory)
             {
-                Messages.Add($"{item.Name} - {item.Description}");
+                Messages.Add(new Message($"{item.Name} - {item.Description}"));
             }
         }
 
         public void Look()
         {
-            Messages.Add(_game.CurrentRoom.Name);
-            Messages.Add(_game.CurrentRoom.Description);
+            Messages.Add(new Message(_game.CurrentRoom.Name));
+            Messages.Add(new Message(_game.CurrentRoom.Description));
             if (_game.CurrentRoom.Items.Count > 0)
             {
-                Messages.Add("There Are a few things in this room:");
+                Messages.Add(new Message("There Are a few things in this room:"));
                 foreach (var item in _game.CurrentRoom.Items)
                 {
-                    Messages.Add("     " + item.Name);
+                    Messages.Add(new Message("     " + item.Name));
                 }
             }
             string exits = string.Join(", ", _game.CurrentRoom.Exits.Keys);
-            Messages.Add("There are exits to the " + exits);
+            Messages.Add(new Message("There are exits to the " + exits));
 
             string lockedExits = "";
             foreach (var lockedRoom in _game.CurrentRoom.LockedExits.Values)
             {
                 lockedExits += lockedRoom.Key;
             }
-            Messages.Add("There are locked exits to the " + lockedExits);
+            Messages.Add(new Message("There are locked exits to the " + lockedExits));
 
         }
 
@@ -95,10 +98,10 @@ namespace EscapeFromCorona.Services
             {
                 _game.CurrentPlayer.Inventory.Add(found);
                 _game.CurrentRoom.Items.Remove(found);
-                Messages.Add($"You have taken the {itemName}");
+                Messages.Add(new Message($"You have taken the {itemName}"));
                 return;
             }
-            Messages.Add("Cannot find item by that name");
+            Messages.Add(new Message("Cannot find item by that name"));
         }
 
         public void Use(string itemName)
@@ -106,11 +109,11 @@ namespace EscapeFromCorona.Services
             var found = _game.CurrentPlayer.Inventory.Find(i => i.Name.ToLower() == itemName);
             if (found != null)
             {
-                Messages.Add(_game.CurrentRoom.Use(found));
+                Messages.Add(new Message(_game.CurrentRoom.Use(found)));
                 return;
             }
             // check if item is in room
-            Messages.Add("You don't have that Item");
+            Messages.Add(new Message("You don't have that Item"));
         }
 
 

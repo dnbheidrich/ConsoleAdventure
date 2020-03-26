@@ -1,4 +1,6 @@
 ﻿using System;
+using EscapeFromCorona.Controllers;
+using EscapeFromCorona.Interfaces;
 
 namespace EscapeFromCorona
 {
@@ -6,7 +8,9 @@ namespace EscapeFromCorona
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+             Console.Clear();
+            IGameController gc = new GameController();
+            gc.Run();
         }
     }
 }
