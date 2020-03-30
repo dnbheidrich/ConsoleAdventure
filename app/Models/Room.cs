@@ -17,6 +17,7 @@ namespace EscapeFromCorona.Models
             LockedExits.Add(key, lockedRoom);
         }
 
+// !NOTE Need how items work explained again
         public string Use(IItem item)
         {
             if (LockedExits.ContainsKey(item))
@@ -32,6 +33,11 @@ namespace EscapeFromCorona.Models
                 {
                     return "You use the morse code in the book to knock on the door, you hear movement behind the door!";
                 }
+                 else if(item.Name.ToLower() == "toilet paper" || item.Name.ToLower() == "tp" )
+                {
+                    return "You give the tp to Dr. Jro and he unlocks the room to the north!";
+                }
+                
                 return "You have unlocked a room";
                 
             }
