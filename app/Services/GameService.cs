@@ -49,7 +49,13 @@ namespace EscapeFromCorona.Services
         public void Help()
         {
             Messages.Add(new Message("This is help", ConsoleColor.Blue));
+            Messages.Add(new Message("(go) to go in direction (go weast)", ConsoleColor.Blue));
+            Messages.Add(new Message("(look) to see room", ConsoleColor.Blue));
+            Messages.Add(new Message("(take) to take item", ConsoleColor.Blue));
+            Messages.Add(new Message("(inv) to use inventory", ConsoleColor.Blue));
             Messages.Add(new Message("(use) to use item", ConsoleColor.Blue));
+
+
 
         }
 
@@ -100,7 +106,9 @@ namespace EscapeFromCorona.Services
             {
                 _game.CurrentPlayer.Inventory.Add(found);
                 _game.CurrentRoom.Items.Remove(found);
-                Messages.Add(new Message($"You have taken the {itemName}"));
+                Messages.Add(new Message($"You have taken the {found.Name}"));
+                Messages.Add(new Message($"{found.Description}"));
+
                 return;
             }
             Messages.Add(new Message("Cannot find item by that name", ConsoleColor.Red));

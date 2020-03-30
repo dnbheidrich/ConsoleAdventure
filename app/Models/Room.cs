@@ -23,11 +23,17 @@ namespace EscapeFromCorona.Models
             {
                 Exits.Add(LockedExits[item].Key, LockedExits[item].Value);
                 LockedExits.Remove(item);
-                if (item.Name.ToLower() == "toilet paper" || item.Name.ToLower() == "tp" )
+
+                if (item.Name.ToLower() == "key" )
                 {
-                    return "You hoist the precious paper in the air and a checkstand opens as if by magic";
+                    return "You unlock the secret passage exposing a tunnel for escape!";
+                } 
+                else if(item.Name.ToLower() == "journal")
+                {
+                    return "You use the morse code in the book to knock on the door, you hear movement behind the door!";
                 }
                 return "You have unlocked a room";
+                
             }
             return "No use for that here";
         }

@@ -13,8 +13,9 @@ namespace EscapeFromCorona.Controllers
         public void Run()
         {
             Console.WriteLine("Hello there what is your name?");
-            _gs = new GameService(Console.ReadLine());
-            string greeting = "Welcome to my game";
+            var playerName = Console.ReadLine();
+            _gs = new GameService(playerName);
+            string greeting = $"Welcome to my game {playerName} ";
             foreach (char letter in greeting)
             {
                 Console.Write(letter);
@@ -30,8 +31,8 @@ namespace EscapeFromCorona.Controllers
         }
         public void GetUserInput()
         {
-            
-            Console.WriteLine("What would you like to do?");
+            // how would i pass playerName to the rest of the game
+            Console.WriteLine($"What would you like to do ?");
             string input = Console.ReadLine().ToLower() + " "; 
             string command = input.Substring(0, input.IndexOf(" "));
             string option = input.Substring(input.IndexOf(" ") + 1).Trim();
