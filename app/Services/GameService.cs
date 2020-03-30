@@ -42,6 +42,7 @@ namespace EscapeFromCorona.Services
             }
             //no exit in that direction
             Messages.Add(new Message("No Room in that direction", ConsoleColor.Red));
+            Console.Clear();
             Look();
             return true;
         }
@@ -54,13 +55,15 @@ namespace EscapeFromCorona.Services
             Messages.Add(new Message("(take) to take item", ConsoleColor.Blue));
             Messages.Add(new Message("(inv) to use inventory", ConsoleColor.Blue));
             Messages.Add(new Message("(use) to use item", ConsoleColor.Blue));
-
+            Console.Clear();
 
 
         }
 
         public void Inventory()
         {
+            Console.Clear();
+            Messages.Clear();
             Messages.Add(new Message("Current Inventory: ", ConsoleColor.Blue));
             foreach (var item in _game.CurrentPlayer.Inventory)
             {
@@ -70,6 +73,8 @@ namespace EscapeFromCorona.Services
 
         public void Look()
         {
+            Console.Clear();
+            Messages.Clear();
             Messages.Add(new Message(_game.CurrentRoom.Name, ConsoleColor.White));
             Messages.Add(new Message(_game.CurrentRoom.Description, ConsoleColor.Blue));
             if (_game.CurrentRoom.Items.Count > 0)
